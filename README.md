@@ -49,6 +49,8 @@ so first time each thread will take 2 phrases and check if there are common temp
 the second time we will go over the results and have a new thread handling the results we get from two threads, means we will have 5 threads to handle.
 the third time we will have 2 threads etc...
 
+And in case we want to scale out to multiple machines we will need workers container and main (master) container, in this case the master can devide the data between participant workers depends on the number of workers, and each worker will get bulk of phrases parse and return a map of templates found and a map of phrases that we didn't found any template for them, and then again to publish the remain data to the workers till we get all templates. (same idea of threads but with diffrent machines)
+
 means the minimum time that we will get is (lets say t is number of threads) (n/t)*m (that in case we find all templates on the first division)
 And the max complexity time that we will get ~n*m that in case we will find the templates only in the last thread.
 
